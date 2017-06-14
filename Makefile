@@ -6,6 +6,7 @@ CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 KERNEL_OBJ_LIST:=\
 kernel/kernel.o \
 kernel/system.o \
+kernel/tty.o \
 kernel/vga.o
 
 all: $(KERNEL_OBJ_LIST) boot/boot.s

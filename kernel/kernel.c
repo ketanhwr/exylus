@@ -5,7 +5,7 @@
  * This file is a part of Exylus.
  */
 
-#include "vga.h"
+#include "tty.h"
 
 void kernel_main ()
 {
