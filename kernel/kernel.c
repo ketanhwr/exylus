@@ -5,10 +5,13 @@
  * This file is a part of Exylus.
  */
 
+#include "gdt.h"
 #include "tty.h"
 
 void kernel_main ()
 {
+	init_gdt();
+
 	terminal_initialize();
 	terminal_writestring("  ______            _           \n");
 	terminal_writestring(" |  ____|          | |          \n");
