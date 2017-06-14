@@ -3,12 +3,19 @@ CC=/home/ketan/opt/cross/bin/i686-elf-gcc
 
 CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
-all:
-	$(AS) boot.s -o boot.o
-	$(CC) $(CFLAGS) -c system.c -o system.o
-	$(CC) $(CFLAGS) -c vga.c -o vga.o
-	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
-	$(CC) -T linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib boot.o system.o vga.o kernel.o -lgcc
+KERNEL_OBJ_LIST:=\
+kernel/kernel.o \
+kernel/system.o \
+kernel/vga.o
+
+all: $(KERNEL_OBJ_LIST) boot/boot.s
+	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+%.o: %.s
+	$(AS) $< -o $@
 
 run:
 	qemu-system-i386 -kernel exylus.bin
