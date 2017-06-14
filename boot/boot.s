@@ -1,3 +1,10 @@
+/*
+ * boot.s
+ * Copyright 2017, Ketan Gupta <ketan19972010@gmail.com>
+ *
+ * This file is a part of Exylus.
+ */
+
 .set ALIGN,    1<<0
 .set MEMINFO,  1<<1
 .set FLAGS,    ALIGN | MEMINFO

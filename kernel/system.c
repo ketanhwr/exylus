@@ -1,3 +1,10 @@
+/*
+ * system.c
+ * Copyright 2017, Ketan Gupta <ketan19972010@gmail.com>
+ *
+ * This file is a part of Exylus.
+ */
+
 #include "system.h"
 
 inline void outb (uint16_t port, uint8_t val)
