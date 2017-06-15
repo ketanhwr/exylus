@@ -25,7 +25,7 @@ void init_idt()
 static void init_idt_table()
 {
 	idt_ptr.limit = sizeof(idt_entry_t) * 256 -1;
-	idt_ptr.base  = (uint32_t)&idt_entries;
+	idt_ptr.base = (uint32_t)&idt_entries;
 
 	memset(&idt_entries, 0, sizeof(idt_entry_t)*256);
 

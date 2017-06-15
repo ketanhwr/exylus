@@ -22,7 +22,7 @@ size_t strlen(const char *str)
 	return len;
 }
 
-void terminal_initialize (void)
+void terminal_initialize(void)
 {
 	terminal_row = 0;
 	terminal_column = 0;
@@ -37,12 +37,12 @@ void terminal_initialize (void)
 	}
 }
 
-void terminal_setcolor (uint8_t color)
+void terminal_setcolor(uint8_t color)
 {
 	terminal_color = color;
 }
 
-void update_cursor ()
+void update_cursor()
 {
 	size_t x = terminal_column, y = terminal_row;
 
@@ -73,13 +73,13 @@ void terminal_scroll()
 	update_cursor();
 }
 
-void terminal_putentryat (char c, uint8_t color, size_t x, size_t y)
+void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = vga_entry(c, color);
 }
 
-void terminal_putchar (char c)
+void terminal_putchar(char c)
 {
 	if (c == '\n') {
 		++terminal_row;
@@ -99,14 +99,14 @@ void terminal_putchar (char c)
 	}
 }
 
-void terminal_write (const char *data, size_t size)
+void terminal_write(const char *data, size_t size)
 {
 	for (size_t i = 0; i < size; ++i) {
 		terminal_putchar(data[i]);
 	}
 }
 
-void terminal_writestring (const char *data)
+void terminal_writestring(const char *data)
 {
 	terminal_write(data, strlen(data));
 	update_cursor();
