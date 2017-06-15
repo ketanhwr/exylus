@@ -7,20 +7,12 @@
 
 #include "tty.h"
 
+#include "string.h"
 #include "system.h"
 #include "vga.h"
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
-
-size_t strlen(const char *str)
-{
-	size_t len = 0;
-	while (str[len]) {
-		len++;
-	}
-	return len;
-}
 
 void terminal_initialize(void)
 {
@@ -109,5 +101,11 @@ void terminal_write(const char *data, size_t size)
 void terminal_writestring(const char *data)
 {
 	terminal_write(data, strlen(data));
+	update_cursor();
+}
+
+void terminal_writeint(int value)
+{
+	terminal_putchar('0' + value);
 	update_cursor();
 }

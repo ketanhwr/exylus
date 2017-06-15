@@ -12,7 +12,7 @@
 void isr_handler(registers_t regs)
 {
 	if (regs.int_no < 32) {
-		terminal_writestring("Interrupt!");
-		for(;;);
+		terminal_writestring("Interrupt: ");
+		terminal_writeint(regs.int_no);
 	}
 }
