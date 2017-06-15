@@ -5,12 +5,15 @@ CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 KERNEL_OBJ_LIST:=\
 kernel/gdt.o \
+kernel/idt.o \
+kernel/isr.o \
 kernel/kernel.o \
+kernel/string.o \
 kernel/system.o \
 kernel/tty.o \
 kernel/vga.o
 
-all: $(KERNEL_OBJ_LIST) boot/boot.s boot/gdt.s
+all: $(KERNEL_OBJ_LIST) boot/boot.s boot/gdt.s boot/idt.s kernel/interrupt.s kernel/isr.s
 	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc
 
 %.o: %.c

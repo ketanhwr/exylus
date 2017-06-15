@@ -5,12 +5,14 @@
  * This file is a part of Exylus.
  */
 
+#include "idt.h"
 #include "gdt.h"
 #include "tty.h"
 
-void kernel_main ()
+void kernel_main()
 {
 	init_gdt();
+	init_idt();
 
 	terminal_initialize();
 	terminal_writestring("  ______            _           \n");
@@ -21,5 +23,7 @@ void kernel_main ()
 	terminal_writestring(" |______/_/\\_\\\\__, |_|\\__,_|___/\n");
 	terminal_writestring("               __/ |            \n");
 	terminal_writestring("              |___/             \n");
+
+	asm volatile ("int $0x3");
 }
                                                   
