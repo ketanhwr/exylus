@@ -9,24 +9,24 @@
 .type isr_common_stub, @function
 isr_common_stub:
 	pusha
-	mov %ds, %ax
-	push %eax
-
-	mov $0x10, %ax
-	mov %ax, %ds
-	mov %ax, %es
-	mov %ax, %fs
-	mov %ax, %gs
-
-	call isr_handler
-	pop %ebx
-	
-	mov %bx, %ds
-	mov %bx, %es
-	mov %bx, %fs
-	mov %bx, %gs
-
+	push %ds
+	push %es
+	push %fs
+	push %gs
+	movw $0x10,%ax
+	movw %ax,%ds
+	movw %ax,%es
+	movw %ax,%fs
+	movw %ax,%gs
+	movl %esp,%eax
+	pushl %eax
+	movl $isr_handler, %eax
+	call *%eax
+	popl %eax
+	popl %gs
+	popl %fs
+	popl %es
+	popl %ds
 	popa
-	add $8, %esp
-	sti
+	addl $8,%esp
 	iret
