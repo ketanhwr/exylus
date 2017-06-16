@@ -9,6 +9,9 @@
 
 #include <stdint.h>
 
+#define UNUSED(x) (void)(x)
+#define CLOCK_FREQUENCY 100
+
 typedef struct registers
 {
 	uint32_t gs, fs, es, ds;

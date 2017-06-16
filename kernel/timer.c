@@ -22,16 +22,18 @@ static void timer_phase(int32_t hz)
 
 void timer_handler(registers_t *reg)
 {
+	UNUSED(reg);
+
 	timer_ticks++;
 
-	if (timer_ticks % 100 == 0) {
+	if (timer_ticks % CLOCK_FREQUENCY == 0) {
 		timer_seconds++;
 	}
 }
 
 void init_timer()
 {
-	timer_phase(100);
+	timer_phase(CLOCK_FREQUENCY);
 	irq_install_handler(0, timer_handler);
 }
 
