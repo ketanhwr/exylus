@@ -1,5 +1,5 @@
-AS=/home/ketan/opt/cross/bin/i686-elf-as
-CC=/home/ketan/opt/cross/bin/i686-elf-gcc
+AS=i686-elf-as
+CC=i686-elf-gcc
 
 CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
