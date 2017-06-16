@@ -1,6 +1,5 @@
 /*
  * vga.c
- * Copyright 2017, Ketan Gupta <ketan19972010@gmail.com>
  *
  * This file is a part of Exylus.
  */
