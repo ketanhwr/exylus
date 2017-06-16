@@ -9,6 +9,7 @@ kernel/idt.o \
 kernel/irq.o \
 kernel/isr.o \
 kernel/kernel.o \
+kernel/keyboard.o \
 kernel/string.o \
 kernel/system.o \
 kernel/timer.o \

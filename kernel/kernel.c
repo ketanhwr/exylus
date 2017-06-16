@@ -5,9 +5,10 @@
  * This file is a part of Exylus.
  */
 
+#include "gdt.h"
 #include "idt.h"
 #include "irq.h"
-#include "gdt.h"
+#include "keyboard.h"
 #include "timer.h"
 #include "tty.h"
 
@@ -16,8 +17,11 @@ void kernel_main()
 	init_gdt();
 	init_idt();
 	init_irq();
-	init_timer();
+
 	asm volatile ("sti");
+
+	init_timer();
+	init_keyboard();
 
 	terminal_initialize();
 
