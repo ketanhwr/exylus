@@ -47,6 +47,7 @@ char *exception_messsage[] = {
 void isr_handler(registers_t *regs)
 {
 	if (regs->int_no < 32) {
+		terminal_writestring("--> ");
 		terminal_writestring(exception_messsage[regs->int_no]);
 		terminal_writestring("\n");
 	}

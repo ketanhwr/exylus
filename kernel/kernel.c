@@ -6,6 +6,7 @@
  */
 
 #include "idt.h"
+#include "irq.h"
 #include "gdt.h"
 #include "tty.h"
 
@@ -13,6 +14,7 @@ void kernel_main()
 {
 	init_gdt();
 	init_idt();
+	init_irq();
 
 	terminal_initialize();
 	terminal_writestring("  ______            _           \n");
@@ -24,6 +26,10 @@ void kernel_main()
 	terminal_writestring("               __/ |            \n");
 	terminal_writestring("              |___/             \n");
 
-	asm volatile ("int $0x3");
+	terminal_writestring("\n");
+	terminal_writestring("Firing an exception!\n");
+	asm volatile ("int $0x0");
+
+	terminal_writestring("Firing an IRQ!\n");
+	asm volatile ("int $0x21");
 }
-                                                  
