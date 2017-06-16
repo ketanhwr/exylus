@@ -27,6 +27,8 @@ void terminal_initialize(void)
 			terminal_buffer[index] = vga_entry(' ', terminal_color);
 		}
 	}
+
+	update_cursor();
 }
 
 void terminal_setcolor(uint8_t color)
