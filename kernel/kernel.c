@@ -34,6 +34,8 @@ void kernel_main()
 	terminal_writestring("Firing an exception!\n");
 	asm volatile ("int $0x0");
 
+	terminal_newline();
+
 	terminal_writestring("Delay for 2 seconds!\n");
 	timer_wait(2);
 	terminal_writestring("Delay complete!\n");

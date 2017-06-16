@@ -33,4 +33,8 @@ void terminal_write(const char *data, size_t size);
 
 void terminal_writestring(const char *data);
 
-void terminal_writeint(int value);
+void terminal_writedigit(uint8_t digit);
+
+void terminal_writeint(int32_t value);
+
+void terminal_newline();

@@ -82,8 +82,6 @@ void terminal_putchar(char c)
 		if (terminal_row == VGA_HEIGHT - 1) {
 			terminal_scroll();
 		}
-
-		return;
 	} else {
 		terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 
@@ -95,6 +93,8 @@ void terminal_putchar(char c)
 			}
 		}
 	}
+
+	update_cursor();
 }
 
 void terminal_write(const char *data, size_t size)
@@ -107,11 +107,38 @@ void terminal_write(const char *data, size_t size)
 void terminal_writestring(const char *data)
 {
 	terminal_write(data, strlen(data));
-	update_cursor();
 }
 
-void terminal_writeint(int value)
+void terminal_writedigit(uint8_t digit)
 {
-	terminal_putchar('0' + value);
-	update_cursor();
+	terminal_putchar('0' + digit);
+}
+
+void terminal_writeint(int32_t value)
+{
+	if (value < 0) {
+		terminal_putchar('-');
+		value = value * (-1);
+	}
+
+	if (value == 0) {
+		terminal_writedigit(0);
+		return;
+	}
+
+	int32_t rev = 0;
+	while (value > 0) {
+		rev = rev * 10 + value%10;
+		value /= 10;
+	}
+
+	while (rev > 0) {
+		terminal_writedigit(rev%10);
+		rev /= 10;
+	}
+}
+
+void terminal_newline()
+{
+	terminal_putchar('\n');
 }
