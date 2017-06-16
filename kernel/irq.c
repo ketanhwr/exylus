@@ -8,7 +8,6 @@
 #include "irq.h"
 
 #include "idt.h"
-#include "tty.h"
 
 void *irq_routines[16] = {
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -63,7 +62,6 @@ void init_irq()
 
 void irq_handler(registers_t *regs)
 {
-	terminal_writestring("--> Interrupt Request\n");
 	void (*handler)(registers_t *regs);
 
 	handler = irq_routines[regs->int_no - 32];

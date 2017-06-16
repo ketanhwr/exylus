@@ -11,6 +11,7 @@ kernel/isr.o \
 kernel/kernel.o \
 kernel/string.o \
 kernel/system.o \
+kernel/timer.o \
 kernel/tty.o \
 kernel/vga.o
 

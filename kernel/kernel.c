@@ -8,6 +8,7 @@
 #include "idt.h"
 #include "irq.h"
 #include "gdt.h"
+#include "timer.h"
 #include "tty.h"
 
 void kernel_main()
@@ -15,8 +16,11 @@ void kernel_main()
 	init_gdt();
 	init_idt();
 	init_irq();
+	init_timer();
+	asm volatile ("sti");
 
 	terminal_initialize();
+
 	terminal_writestring("  ______            _           \n");
 	terminal_writestring(" |  ____|          | |          \n");
 	terminal_writestring(" | |__  __  ___   _| |_   _ ___ \n");
@@ -30,6 +34,9 @@ void kernel_main()
 	terminal_writestring("Firing an exception!\n");
 	asm volatile ("int $0x0");
 
-	terminal_writestring("Firing an IRQ!\n");
-	asm volatile ("int $0x21");
+	terminal_writestring("Delay for 2 seconds!\n");
+	timer_wait(2);
+	terminal_writestring("Delay complete!\n");
+
+	for(;;);
 }
