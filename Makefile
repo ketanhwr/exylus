@@ -4,23 +4,27 @@ CC=i686-elf-gcc
 CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 KERNEL_OBJ_LIST:=\
-kernel/gdt.o \
-kernel/idt.o \
-kernel/irq.o \
-kernel/isr.o \
+kernel/cpu/gdt.o \
+kernel/cpu/idt.o \
+kernel/cpu/irq.o \
+kernel/cpu/isr.o \
+kernel/devices/timer.o \
+kernel/devices/keyboard.o \
+kernel/misc/tty.o \
+kernel/misc/vga.o \
+kernel/sys/system.o \
 kernel/kernel.o \
-kernel/keyboard.o \
-kernel/string.o \
-kernel/system.o \
-kernel/timer.o \
-kernel/tty.o \
-kernel/vga.o
+kernel/libc.o
 
-all: $(KERNEL_OBJ_LIST) kernel/start.s
-	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc
+KERNEL_INCLUDE_DIR=kernel/include
+
+all: kernel
+
+kernel: $(KERNEL_OBJ_LIST) kernel/core.s
+	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc -I$(KERNEL_INCLUDE_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(KERNEL_INCLUDE_DIR)
 
 %.o: %.s
 	$(AS) $< -o $@

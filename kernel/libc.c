@@ -1,5 +1,5 @@
 /*
- * string.c
+ * libc.c
  *
  * This file is a part of Exylus.
  */

@@ -1,5 +1,5 @@
 /*
- * start.s
+ * core.s
  *
  * This file is a part of Exylus.
  */
