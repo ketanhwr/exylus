@@ -16,7 +16,7 @@ kernel/timer.o \
 kernel/tty.o \
 kernel/vga.o
 
-all: $(KERNEL_OBJ_LIST) boot/boot.s kernel/gdt.s kernel/idt.s kernel/interrupt.s kernel/irq.s kernel/isr.s
+all: $(KERNEL_OBJ_LIST) kernel/start.s
 	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc
 
 %.o: %.c
