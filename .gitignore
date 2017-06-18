@@ -42,6 +42,9 @@
 *.idb
 *.pdb
 
+# NetBeans projects
+nbproject/
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
