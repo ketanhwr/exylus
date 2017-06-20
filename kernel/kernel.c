@@ -17,12 +17,8 @@ void kernel_main()
 	init_gdt();
 	init_idt();
 	init_irq();
-
-	asm volatile ("sti");
-
 	init_timer();
 	init_keyboard();
-
 	init_paging();
 
 	terminal_initialize();
