@@ -40,6 +40,6 @@ void init_paging();
 
 void switch_page_directory(page_directory_t *new);
 
-page_t *get_page(uint32_t address, int32_t make, page_directory_t *dir);
+page_t *get_page(uintptr_t address, int32_t make, page_directory_t *dir);
 
 void page_fault(registers_t *regs);

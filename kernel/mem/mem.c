@@ -98,7 +98,7 @@ void alloc_frame(page_t *page, int32_t is_kernel, int32_t is_writeable)
 	} else {
 		uint32_t idx = first_frame();
 		if (idx == (uint32_t)-1) {
-			// PANIC
+			asm volatile ("cli");
 			for(;;);
 		}
 		set_frame(idx*0x1000);
@@ -152,7 +152,7 @@ void switch_page_directory(page_directory_t *dir)
 	asm volatile("mov %0, %%cr0":: "r"(cr0));
 }
 
-page_t *get_page(uint32_t address, int32_t make, page_directory_t *dir)
+page_t *get_page(uintptr_t address, int32_t make, page_directory_t *dir)
 {
 	address /= 0x1000;
 	uint32_t table_idx = address / 1024;
@@ -184,10 +184,10 @@ void page_fault(registers_t *regs)
 	if (rw) {terminal_writestring("read-only ");}
 	if (us) {terminal_writestring("user-mode ");}
 	if (reserved) {terminal_writestring("reserved ");}
-	terminal_writestring(") at 0x");
+	terminal_writestring(") at ");
 	terminal_writeint(faulting_address);
 	terminal_writestring("\n");
 
-	//PANIC
+	asm volatile ("cli");
 	for(;;);
 }
