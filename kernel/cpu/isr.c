@@ -8,6 +8,8 @@
 
 #include "tty.h"
 
+void *isr_routines[32] = { NULL };
+
 char *exception_messsage[] = {
 	"Division By Zero Exception",
 	"Debug Exception",
@@ -46,8 +48,25 @@ char *exception_messsage[] = {
 void isr_handler(registers_t *regs)
 {
 	if (regs->int_no < 32) {
-		terminal_writestring("--> ");
-		terminal_writestring(exception_messsage[regs->int_no]);
-		terminal_writestring("\n");
+		void (*handler)(registers_t *regs);
+
+		handler = isr_routines[regs->int_no];
+		if (handler) {
+			handler(regs);
+		} else {
+			terminal_writestring("--> ");
+			terminal_writestring(exception_messsage[regs->int_no]);
+			terminal_writestring("\n");
+		}
 	}
+}
+
+void isr_install_handler(int32_t isr, void (*handler)(registers_t *r))
+{
+	isr_routines[isr] = handler;
+}
+
+void isr_uninstall_handler(int32_t isr)
+{
+	isr_routines[isr] = 0;
 }

@@ -6,6 +6,7 @@
 
 #include "mem.h"
 
+#include "isr.h"
 #include "string.h"
 #include "tty.h"
 
@@ -151,7 +152,7 @@ void init_paging()
        alloc_frame( get_page(i, 1, kernel_directory), 0, 0);
        i += 0x1000;
    }
-   //register_interrupt_handler(14, page_fault);
+   isr_install_handler(14, page_fault);
 
    switch_page_directory(kernel_directory);
 }
@@ -188,15 +189,15 @@ page_t *get_page(uint32_t address, int32_t make, page_directory_t *dir)
    }
 }
 
-void page_fault(registers_t regs)
+void page_fault(registers_t *regs)
 {
    uint32_t faulting_address;
    asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 
-   int32_t present   = !(regs.err_code & 0x1);
-   int32_t rw = regs.err_code & 0x2;
-   int32_t us = regs.err_code & 0x4;
-   int32_t reserved = regs.err_code & 0x8;
+   int32_t present = !(regs->err_code & 0x1);
+   int32_t rw = regs->err_code & 0x2;
+   int32_t us = regs->err_code & 0x4;
+   int32_t reserved = regs->err_code & 0x8;
 
    terminal_writestring("Page fault! ( ");
    if (present) {terminal_writestring("present ");}

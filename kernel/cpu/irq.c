@@ -8,10 +8,9 @@
 
 #include "idt.h"
 
-void *irq_routines[16] = {
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0
-};
+#include <stddef.h>
+
+void *irq_routines[16] = { NULL };
 
 void irq_install_handler(int32_t irq, void (*handler)(registers_t *r))
 {
