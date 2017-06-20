@@ -37,3 +37,5 @@ void terminal_writedigit(uint8_t digit);
 void terminal_writeint(int32_t value);
 
 void terminal_newline();
+
+void terminal_writehex(uint32_t num);

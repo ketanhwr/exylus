@@ -150,3 +150,17 @@ void terminal_newline()
 {
 	terminal_putchar('\n');
 }
+
+void terminal_writehex(uint32_t num)
+{
+	char* ref = "0123456789ABCDEF";
+	char buf[10];
+	buf[9] = 0;
+	uint8_t i = 8;
+	while(num > 0)
+	{
+		buf[i--] = ref[num%16];
+		num /= 16;
+	}
+	terminal_writestring(&buf[i + 1]);
+}

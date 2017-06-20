@@ -40,7 +40,7 @@ void kernel_main()
 
 	terminal_writestring("Delay for 2 seconds!\n");
 	timer_wait(2);
-	terminal_writestring("Delay complete!\n");
+	terminal_writestring("Delay complete!\n\n");
 
 	terminal_writestring("Creating page fault!\n");
 	uint32_t *ptr = (uint32_t*)0xA0000000;

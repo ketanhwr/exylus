@@ -140,6 +140,8 @@ void init_paging()
 	isr_install_handler(14, page_fault);
 
 	switch_page_directory(kernel_directory);
+
+	UNUSED(test_frame);
 }
 
 void switch_page_directory(page_directory_t *dir)
@@ -184,8 +186,8 @@ void page_fault(registers_t *regs)
 	if (rw) {terminal_writestring("read-only ");}
 	if (us) {terminal_writestring("user-mode ");}
 	if (reserved) {terminal_writestring("reserved ");}
-	terminal_writestring(") at ");
-	terminal_writeint(faulting_address);
+	terminal_writestring(") at 0x");
+	terminal_writehex(faulting_address);
 	terminal_writestring("\n");
 
 	asm volatile ("cli");
