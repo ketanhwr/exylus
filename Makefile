@@ -10,6 +10,7 @@ kernel/cpu/irq.o \
 kernel/cpu/isr.o \
 kernel/devices/timer.o \
 kernel/devices/keyboard.o \
+kernel/mem/mem.o \
 kernel/misc/tty.o \
 kernel/misc/vga.o \
 kernel/sys/system.o \

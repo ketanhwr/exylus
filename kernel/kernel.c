@@ -8,6 +8,7 @@
 #include "idt.h"
 #include "irq.h"
 #include "keyboard.h"
+#include "mem.h"
 #include "timer.h"
 #include "tty.h"
 
@@ -21,6 +22,8 @@ void kernel_main()
 
 	init_timer();
 	init_keyboard();
+
+	init_paging();
 
 	terminal_initialize();
 

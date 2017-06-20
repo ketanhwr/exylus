@@ -15,6 +15,7 @@
 .long MAGIC
 .long FLAGS
 .long CHECKSUM
+.extern end
 
 .section .bss
 .align 16
