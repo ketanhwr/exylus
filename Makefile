@@ -24,6 +24,7 @@ KERNEL_INCLUDE_DIR=kernel/include
 
 all: kernel
 
+.PHONY: kernel
 kernel: $(KERNEL_CC_LIST) $(KERNEL_AS_LIST)
 	$(CC) -T linker/linker.ld -o exylus.bin -ffreestanding -O2 -nostdlib $^ -lgcc -I$(KERNEL_INCLUDE_DIR)
 
