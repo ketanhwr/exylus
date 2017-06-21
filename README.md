@@ -6,6 +6,8 @@ Exylus is a hobby operating system which I'm writing because I'm bored and want 
 
 ## Build Instructions
 
+#### Generating exylus.bin
+
 1. Setup a GCC Cross Compiler. Go through this link regarding the process: [http://wiki.osdev.org/GCC_Cross-Compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
 2. Install `make` and QEMU emulator (this is required to run the operating system).
@@ -22,7 +24,7 @@ Exylus is a hobby operating system which I'm writing because I'm bored and want 
 	$ make run
 	```
 
-### Generating ISO (thanks to doztrock)
+#### Generating exylus.iso (thanks to doztrock)
 
 1. After follwing the above instructions, do
 	```
