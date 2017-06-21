@@ -21,3 +21,14 @@ Exylus is a hobby operating system which I'm writing because I'm bored and want 
 	```
 	$ make run
 	```
+
+### Generating ISO (thanks to doztrock)
+
+1. After follwing the above instructions, do
+	```
+	$ make iso
+	```
+2. And run the iso with
+	```
+	$ make run-iso
+	```
