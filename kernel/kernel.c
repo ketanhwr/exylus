@@ -44,8 +44,8 @@ void kernel_main()
 
 	terminal_writestring("Creating page fault!\n");
 	uint32_t *ptr = (uint32_t*)0xA0000000;
-	uint32_t do_page_fault = *ptr;
-	terminal_writeint(do_page_fault);
+	volatile uint32_t do_page_fault = *ptr;
+	UNUSED(do_page_fault);
 
 	for(;;);
 }
