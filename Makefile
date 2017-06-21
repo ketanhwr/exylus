@@ -36,5 +36,12 @@ kernel: $(KERNEL_CC_LIST) $(KERNEL_AS_LIST)
 run:
 	qemu-system-i386 -kernel exylus.bin
 
+iso: kernel
+	cp exylus.bin iso/boot/exylus.bin
+	grub-mkrescue -o exylus.iso iso/
+
+run-iso: iso
+	qemu-system-i386 -cdrom exylus.iso
+
 clean:
 	find -type f \( -name "*.o" -o -name "*.bin" \) -delete
