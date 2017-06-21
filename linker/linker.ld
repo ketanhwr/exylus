@@ -9,9 +9,11 @@ ENTRY(_start)
 SECTIONS
 {
 	. = 1M;
+	phys = .;
 
 	.text BLOCK(4K) : ALIGN(4K)
 	{
+		code = .;
 		*(.multiboot)
 		*(.text)
 	}
@@ -30,5 +32,18 @@ SECTIONS
 	{
 		*(COMMON)
 		*(.bss)
+	}
+
+	.eh_frame BLOCK(4K) : ALIGN(4K)
+	{
+		*(.eh_frame)
+	}
+
+	end = .;
+
+	/DISCARD/ :
+	{
+		*(.comment)
+		*(.note.gnu.build-id)
 	}
 }

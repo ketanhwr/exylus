@@ -8,10 +8,9 @@
 
 #include "idt.h"
 
-void *irq_routines[16] = {
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0
-};
+#include <stddef.h>
+
+void *irq_routines[16] = { NULL };
 
 void irq_install_handler(int32_t irq, void (*handler)(registers_t *r))
 {
@@ -57,6 +56,8 @@ void init_irq()
 	idt_set_gate(45, (uint32_t)irq13, 0x08, 0x8E);
 	idt_set_gate(46, (uint32_t)irq14, 0x08, 0x8E);
 	idt_set_gate(47, (uint32_t)irq15, 0x08, 0x8E);
+
+	asm volatile ("sti");
 }
 
 void irq_handler(registers_t *regs)

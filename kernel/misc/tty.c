@@ -58,7 +58,7 @@ void terminal_scroll()
 	}
 
 	for (size_t x = 0; x < VGA_WIDTH; ++x) {
-		const size_t index = VGA_WIDTH * (VGA_WIDTH - 1) + x;
+		const size_t index = VGA_WIDTH * (VGA_HEIGHT - 1) + x;
 		terminal_buffer[index] = vga_entry(' ', terminal_column);
 	}
 
@@ -78,7 +78,7 @@ void terminal_putchar(char c)
 		++terminal_row;
 		terminal_column = 0;
 
-		if (terminal_row == VGA_HEIGHT - 1) {
+		if (terminal_row == VGA_HEIGHT) {
 			terminal_scroll();
 		}
 	} else if (c == '\b') {
@@ -96,7 +96,7 @@ void terminal_putchar(char c)
 		if (++terminal_column == VGA_WIDTH) {
 			terminal_column = 0;
 
-			if (++terminal_row == VGA_HEIGHT - 1) {
+			if (++terminal_row == VGA_HEIGHT) {
 				terminal_scroll();
 			}
 		}
@@ -149,4 +149,18 @@ void terminal_writeint(int32_t value)
 void terminal_newline()
 {
 	terminal_putchar('\n');
+}
+
+void terminal_writehex(uint32_t num)
+{
+	char* ref = "0123456789ABCDEF";
+	char buf[10];
+	buf[9] = 0;
+	uint8_t i = 8;
+	while(num > 0)
+	{
+		buf[i--] = ref[num%16];
+		num /= 16;
+	}
+	terminal_writestring(&buf[i + 1]);
 }

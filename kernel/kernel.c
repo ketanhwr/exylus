@@ -8,6 +8,7 @@
 #include "idt.h"
 #include "irq.h"
 #include "keyboard.h"
+#include "mem.h"
 #include "timer.h"
 #include "tty.h"
 
@@ -16,11 +17,9 @@ void kernel_main()
 	init_gdt();
 	init_idt();
 	init_irq();
-
-	asm volatile ("sti");
-
 	init_timer();
 	init_keyboard();
+	init_paging();
 
 	terminal_initialize();
 
@@ -41,7 +40,12 @@ void kernel_main()
 
 	terminal_writestring("Delay for 2 seconds!\n");
 	timer_wait(2);
-	terminal_writestring("Delay complete!\n");
+	terminal_writestring("Delay complete!\n\n");
+
+	terminal_writestring("Creating page fault!\n");
+	uint32_t *ptr = (uint32_t*)0xA0000000;
+	uint32_t do_page_fault = *ptr;
+	terminal_writeint(do_page_fault);
 
 	for(;;);
 }
